@@ -18,6 +18,8 @@ Then the HiSRC jQuery plugin checks the resolution of the browser.
 
 If the browser resolution is wider than the default 640 pixels width, then the plugin overwrites the low-resolution image for the higher resolution image.
 
+If the device pixel ratio is set, instead of the width, the plugin overwrites the image with the high resolution image. For example, if you set the mindpr: 2, the high-resolution image is displayed for the high pixel density screen with the pixel ratio of 2, such as Retina display.
+
 However, if mobile bandwidth is detected (like 3G), the low-resolutions stay in place. 
 
 Setting up
@@ -40,6 +42,17 @@ $(document).ready(function(){
   $(".hisrc img+img").hisrc({ minwidth: 800 });
 })
 ```
+
+Or you can also set the mindpr (device ratio) for the high pixel density screens:
+```html
+$(document).ready(function(){
+  $(".hisrc img").hisrc();
+  $(".hisrc img+img").hisrc({ mindpr: 2 });
+})
+```
+
+When you define the mindpr instead of width, any minwidth setting is ignored.
+
 
 
 

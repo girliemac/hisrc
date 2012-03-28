@@ -1,20 +1,19 @@
 <!doctype html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
   <script src="../hisrc.js"></script>
   <script>
   $(document).ready(function(){
-    $(".hisrc img").hisrc();
+    $(".hisrc img").hisrc({mindpr: 1.5});
   })
 
   </script>
  <style type="text/css">
 	body {
 		margin: 0 auto;
-	}
-	img {
-		width: 100%;
+		padding: 0;
 	}
 	
  </style>
@@ -26,6 +25,19 @@
 <div class="hisrc">
 <img src="TEST-lowresolution.png" data-hisrc="TEST-hiresolution.png" data-lowbandwidth="TEST-lowbandwidth.png">
 </div>
+
+<ul>
+	<li>Device Width = <span id="dw"></span></li>
+	<li>Device Pixel Ratio = <span id="dpr"></span></li>
+</ul>
+<script>
+  $(document).ready(function(){
+	var dw = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+	$("#dw").html(dw);
+    $("#dpr").html(window.devicePixelRatio);
+  })
+
+  </script>
 
 </body>
 </html>

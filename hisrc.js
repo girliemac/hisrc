@@ -13,10 +13,10 @@
 	}
 	
 	$.hisrc.defaults = {
-		// change minimum width, if you wish
-		minwidth: 640
+		// change minimum width or targeting high pixel density (screen ration > 1)
+		minwidth: 640,
+		mindpr: false
 	}
-
 
 	$.fn.hisrc = function(options) {
 		var settings = $.extend({}, $.hisrc.defaults, options);
@@ -37,15 +37,20 @@
 			});
 		}
 		
-		return this.each(function(){
+
+		// When the pixelRatio is set, minwidth value is ignored
+		var minwidth = (settings.mindpr > 1) ? false : settings.minwidth;
+		return this.each(function(){ 
 			$(this).data('lowsrc', $(this).attr('src'));
 			
 			$(this)
-				.on('swapres.hisrc', function(){
+				.on('swapres.hisrc', function(){ 
 					if (connection == 1) {
 						$(this).attr('src', $(this).data('lowsrc'));
-					} else if ($(window).width() > settings.minwidth) {
-						$(this).attr('src', $(this).data('hisrc'))
+					} else if (settings.mindpr && window.devicePixelRatio && window.devicePixelRatio >= settings.mindpr) {
+						$(this).attr('src', $(this).data('hisrc'));
+					} else if (minwidth && $(window).width() > minwidth) {
+						$(this).attr('src', $(this).data('hisrc'));
 					} else {
 						$(this).attr('src', $(this).data('lowsrc'));
 					}
